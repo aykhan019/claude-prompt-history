@@ -1,64 +1,40 @@
-/* ══ ICON BUTTON — h-8 w-8 rounded-md !bg-bg-400 ══ */
-#cph-icon-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  flex-shrink: 0;
-  width: 2rem;
-  height: 2rem;
-  border-radius: 0.375rem;
-  background: var(--bg-400, rgba(128,128,128,0.18));
-  border: none;
-  cursor: pointer;
-  color: inherit;
-  transition: background 150ms cubic-bezier(0.165,0.85,0.45,1);
+/* ══ ICON BUTTON — inherits Claude's ghost-button classes from JS ══ */
+/* Only override for the active (panel-open) state highlight */
+#cph-icon-btn.active {
+  background: hsl(var(--bg-200, 30 3.3% 11.8%));
+  color: hsl(var(--text-100, 48 33.3% 97.1%));
 }
-#cph-icon-btn:hover  { background: var(--bg-500, rgba(128,128,128,0.28)); }
-#cph-icon-btn.active { background: var(--bg-500, rgba(128,128,128,0.28)); }
-#cph-icon-btn svg    { flex-shrink: 0; }
 
-/* ══ ROOT ══ */
-#cph-root {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
-  font-size: 14px;
-  line-height: 1.5;
-}
+/* ══ ROOT — marker only, no visual ══ */
+#cph-root { display: none; }
 
 /* ══ BACKDROP ══ */
 #cph-backdrop {
   display: none;
   position: fixed;
   inset: 0;
-  z-index: 49;
+  z-index: 40;
   pointer-events: none;
 }
 #cph-backdrop.visible { display: block; }
 
-/* ══ SIDEBAR
-   Matches Claude's design system:
-   - Border more visible: lighter/stronger color
-   - Top margin reduced to bring content up
-   - Styling matches Claude's dark theme
-══ */
+/* ══ SIDEBAR — fixed position on right side ══ */
 #cph-sidebar {
   position: fixed;
   top: 0;
   right: 0;
   z-index: 50;
   width: 384px;
-  height: calc(100% - 56px);
-  margin: 56px 8px 8px 8px;
-  overflow-x: hidden;
-  overflow-y: auto;
+  height: calc(100% - 64px);
+  margin: 56px 8px 8px 0;
   padding: 1rem;
   box-sizing: border-box;
+  overflow-x: hidden;
+  overflow-y: auto;
 
-  /* BORDER — matches Claude's Content panel exactly */
+  /* Claude's design tokens */
   border: 1px solid hsl(var(--border-200) / 0.15);
   border-radius: 1rem;
-
-  /* Background — Claude's panel surface color */
   background: var(--bg-100, #2c2c28);
 
   scrollbar-width: thin;
@@ -82,9 +58,19 @@
   pointer-events: auto;
 }
 
-/* ══ INNER WRAPPER — md:w-[342px] ══ */
+/* ══ CHAT CONSTRAINT
+   Applied via classList.toggle — NOT inline style.
+   Targets only the scrollable message area (below
+   the sticky header), so header buttons stay fixed.
+══ */
+.cph-constrained {
+  padding-right: 392px;
+  transition: padding-right 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ══ INNER WRAPPER ══ */
 #cph-inner {
-  width: 342px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -105,39 +91,14 @@
   justify-content: space-between;
 }
 
-/* "History" title — font-medium text-sm */
+/* "My prompts" title */
 #cph-title {
   font-weight: 500;
   font-size: 0.875rem;
   line-height: 1.25rem;
   margin: 0;
   color: var(--text-000, inherit);
-}
-
-/* ══ TABS ══ */
-#cph-tabs {
-  display: flex;
-  border-bottom: 0.5px solid var(--border-300, rgba(200,200,200,0.2));
-  margin-bottom: 0.125rem;
-}
-.cph-tab {
-  flex: 1;
-  padding: 0.375rem 0.25rem 0.625rem;
-  background: none;
-  border: none;
-  border-bottom: 1.5px solid transparent;
-  margin-bottom: -0.5px;
-  cursor: pointer;
-  font-size: 0.75rem;
-  font-weight: 500;
   font-family: inherit;
-  color: var(--text-400, rgba(150,150,150,0.75));
-  transition: color 0.15s, border-color 0.15s;
-}
-.cph-tab:hover { color: var(--text-100, inherit); }
-.cph-tab.active {
-  color: var(--text-000, inherit);
-  border-bottom-color: currentColor;
 }
 
 /* ══ LIST ══ */
@@ -169,6 +130,8 @@
   cursor: pointer;
   text-align: left;
   color: var(--text-200, rgba(220,220,220,0.85));
+  font-family: inherit;
+  font-size: inherit;
   transition: background 0.15s ease, border-color 0.15s ease;
 }
 .cph-item:hover {
@@ -204,53 +167,9 @@
   -webkit-box-orient: vertical;
 }
 
-/* response items */
-.cph-col {
-  display: flex;
-  flex-direction: column;
-  gap: 0.125rem;
-  flex: 1;
-  overflow: hidden;
-  min-width: 0;
+/* ══ SCROLL-TO FLASH ══ */
+.cph-flash {
+  outline: 2px solid hsl(var(--border-200, 51 16.5% 84.5%));
+  border-radius: 6px;
+  transition: outline 0.8s ease 1s;
 }
-.cph-ai-title {
-  flex: 1;
-  font-size: 0.875rem;
-  font-weight: 400;
-  line-height: 1.5;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  color: var(--text-200, rgba(220,220,220,0.85));
-}
-.cph-ai-sub {
-  font-size: 0.6875rem;
-  color: var(--text-400, rgba(150,150,150,0.55));
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  line-height: 1.4;
-}
-
-/* animated dots while waiting for title */
-.cph-dots {
-  display: inline-flex;
-  gap: 4px;
-  align-items: center;
-  flex: 1;
-  padding: 0;
-  height: 1.5rem;
-}
-.cph-dots span {
-  width: 4px; height: 4px;
-  border-radius: 50%;
-  background: var(--text-300, rgba(180,180,180,0.6));
-  animation: cph-blink 1.2s ease-in-out infinite;
-}
-.cph-dots span:nth-child(2) { animation-delay: 0.2s; }
-.cph-dots span:nth-child(3) { animation-delay: 0.4s; }
-@keyframes cph-blink {
-  0%,100% { opacity: 0.15; transform: scale(0.8); }
-  50% { opacity: 1; transform: scale(1); }
-}
-
