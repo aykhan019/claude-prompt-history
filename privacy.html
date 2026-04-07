@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — Claude Prompt History</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: #f7f7f8;
+      color: #1a1a1a;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── Header ── */
+    header {
+      background: #fff;
+      border-bottom: 1px solid #e5e5e5;
+      padding: 20px 0;
+    }
+    .header-inner {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      flex-shrink: 0;
+    }
+    .header-text h1 {
+      font-size: 17px;
+      font-weight: 700;
+      color: #1a1a1a;
+      line-height: 1.2;
+    }
+    .header-text p {
+      font-size: 13px;
+      color: #888;
+      margin-top: 2px;
+    }
+
+    /* ── Hero band ── */
+    .hero {
+      background: linear-gradient(135deg, #d97757 0%, #c96442 100%);
+      color: #fff;
+      text-align: center;
+      padding: 56px 24px 48px;
+    }
+    .hero h2 {
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+    .hero p {
+      margin-top: 10px;
+      font-size: 16px;
+      opacity: 0.88;
+    }
+    .hero .badge {
+      display: inline-block;
+      margin-top: 20px;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.35);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 6px 16px;
+      border-radius: 99px;
+    }
+
+    /* ── Main content ── */
+    main {
+      flex: 1;
+      max-width: 720px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 48px 24px 64px;
+    }
+
+    .card {
+      background: #fff;
+      border: 1px solid #e5e5e5;
+      border-radius: 16px;
+      padding: 32px 36px;
+      margin-bottom: 24px;
+    }
+
+    .card-icon {
+      font-size: 28px;
+      margin-bottom: 12px;
+    }
+
+    .card h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: #1a1a1a;
+    }
+
+    .card p, .card li {
+      font-size: 15px;
+      line-height: 1.7;
+      color: #444;
+    }
+
+    .card ul {
+      list-style: none;
+      padding: 0;
+      margin-top: 8px;
+    }
+    .card ul li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 6px 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .card ul li:last-child { border-bottom: none; }
+    .card ul li::before {
+      content: "✓";
+      font-weight: 700;
+      color: #d97757;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* Highlight box */
+    .highlight {
+      background: #fff8f5;
+      border: 1px solid #f5c8b5;
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-top: 16px;
+      font-size: 15px;
+      color: #6b3a28;
+      line-height: 1.6;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 28px 24px;
+      font-size: 13px;
+      color: #aaa;
+      border-top: 1px solid #e5e5e5;
+      background: #fff;
+    }
+    footer a { color: #d97757; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 500px) {
+      .card { padding: 24px 20px; }
+      .hero h2 { font-size: 26px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="header-inner">
+      <img class="logo" src="icons/icon128.png" alt="Claude Prompt History icon" />
+      <div class="header-text">
+        <h1>Claude Prompt History</h1>
+        <p>Chrome Extension</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <div class="hero">
+    <h2>Privacy Policy</h2>
+    <p>Simple, honest, and short — because there's nothing to hide.</p>
+    <span class="badge">Last updated: April 7, 2026</span>
+  </div>
+
+  <!-- Content -->
+  <main>
+
+    <div class="card">
+      <div class="card-icon">🔒</div>
+      <h3>We collect no personal data</h3>
+      <p>
+        Claude Prompt History does not collect, store, transmit, or share any personal information
+        whatsoever. Everything the extension does happens entirely inside your browser, on your device.
+      </p>
+      <div class="highlight">
+        Your prompts never leave your browser. No servers. No analytics. No tracking.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">⚙️</div>
+      <h3>How the extension works</h3>
+      <p>
+        The extension injects a content script into <strong>claude.ai</strong> pages only.
+        It reads the text of your prompts from the page DOM and displays them in a local sidebar panel,
+        so you can quickly scroll back and navigate your conversation history.
+      </p>
+      <ul>
+        <li>All processing happens locally in your browser</li>
+        <li>No data is sent to any external server</li>
+        <li>No data is stored beyond your current browser session</li>
+        <li>The extension only runs on claude.ai — no other websites</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">📋</div>
+      <h3>What we do not collect</h3>
+      <ul>
+        <li>Personally identifiable information (name, email, address)</li>
+        <li>Health or financial information</li>
+        <li>Authentication credentials or passwords</li>
+        <li>Location data</li>
+        <li>Web browsing history</li>
+        <li>User activity or keystrokes</li>
+        <li>Cookies or local storage data</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">🔄</div>
+      <h3>Third-party sharing</h3>
+      <p>
+        We do not sell, rent, or share any user data with third parties — because we don't
+        collect any data in the first place. The extension has no backend, no analytics service,
+        and no advertising partners.
+      </p>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">📬</div>
+      <h3>Contact</h3>
+      <p>
+        If you have any questions about this privacy policy, feel free to reach out via the
+        <a href="https://chromewebstore.google.com/detail/fkkjhjecbadnfpngoeanhghdppbdnjge" style="color:#d97757;">Chrome Web Store listing</a>
+        or open an issue on the project repository.
+      </p>
+    </div>
+
+  </main>
+
+  <footer>
+    &copy; 2026 Claude Prompt History &nbsp;·&nbsp;
+    <a href="https://chromewebstore.google.com/detail/fkkjhjecbadnfpngoeanhghdppbdnjge">Chrome Web Store</a>
+  </footer>
+
+</body>
+</html>
