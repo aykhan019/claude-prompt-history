@@ -197,19 +197,47 @@
 
   /* ══════════════════════════════════════
      SCROLL + HIGHLIGHT
+     Use existing page/header layout; avoid inline styles.
      ══════════════════════════════════════ */
- function scrollToTurn(id) {
+  function scrollToTurn(id) {
     const turn = turns.find(t => t.id === id);
     if (!turn) return;
-    const el = (turn.promptEl && document.contains(turn.promptEl))
-      ? turn.promptEl : findByText(turn.prompt);
-    if (el) { 
-        el.style.scrollMarginTop = '50px'; // Adjust this pixel value as needed
-        el.scrollIntoView({ behavior: 'smooth', block: 'start' }); 
-        flash(el); 
+    const el = (turn.promptEl && document.contains(turn.promptEl)) ? turn.promptEl : findByText(turn.prompt);
+    if (!el) return;
+
+    function findScrollContainer(node) {
+      let p = node;
+      while (p && p !== document.body && p !== document.documentElement) {
+        const style = getComputedStyle(p);
+        const overflowY = style.overflowY;
+        if (p.scrollHeight > p.clientHeight && (overflowY === 'auto' || overflowY === 'scroll' || overflowY === 'overlay')) return p;
+        p = p.parentElement;
+      }
+      return document.scrollingElement || document.documentElement;
     }
+
+    const container = findScrollContainer(el);
+    const header = document.querySelector('header, [role="banner"], .app-header, .topbar, .toolbar-container');
+    const headerHeight = header ? header.getBoundingClientRect().height : 0;
+    const gap = 8;
+
+    try {
+      const elRect = el.getBoundingClientRect();
+      if (container === document.scrollingElement || container === document.documentElement) {
+        const target = window.pageYOffset + elRect.top - headerHeight - gap;
+        window.scrollTo({ top: Math.max(0, Math.round(target)), behavior: 'smooth' });
+      } else {
+        const contRect = container.getBoundingClientRect();
+        const target = container.scrollTop + (elRect.top - contRect.top) - headerHeight - gap;
+        container.scrollTo({ top: Math.max(0, Math.round(target)), behavior: 'smooth' });
+      }
+    } catch (e) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    flash(el);
     if (window.innerWidth < 1000) toggleSidebar(false);
-}
+  }
 
   function findByText(prompt) {
     const needle = prompt.slice(0, 36).toLowerCase();
